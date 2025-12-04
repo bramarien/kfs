@@ -1,0 +1,45 @@
+
+# KFS - Kernel from scratch
+
+
+## Mandatory parts
+
+
+- Install GRUB to a virtual image
+
+- Write an ASM boot code that handles multiboot header, 
+        and use GRUB to init and call main function of the kernel itself
+
+- Wite basic kernel code of the choosen language ( in our case C )
+
+- Compile it with correct flags and link it to make it bootable
+
+- Write some helpers like kernel types or basic functions ( like libft )
+
+- The work must not exceed 10 MB
+
+- Code the interface between your kernel and the screen
+
+- Display 42 on the screen
+
+- You must create a linker file with ld to combine everything in the kernel binary.
+
+
+## Notes:
+
+### Directive / Instruction
+Directive are not translated to machine code, it give a clue to the assembler how the program should compile.
+Instruction will be translated to machine code and executed by the cpu.
+
+### Links :
+Youtube -> Nanobyte
+OSDEV
+
+### How to create a basic disk image with grub
+Create an empty file with dd : `dd if=/dev/zero of=./kfs.img bs=1M count=10`
+Mount this image using loop device.
+Use fdisk on this loop device. ( dont forget to flag the partition as bootable )
+Partition the image as ext2 fs ( carefull to not partition the entire image but only the /dev/_p1 )
+Then mount the image on a host folder and create /boot entry.
+Using grub from the host install it on the mounted image.
+`grub-install --target=i386-pc /dev/loop0`
