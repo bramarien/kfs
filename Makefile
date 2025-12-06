@@ -18,13 +18,13 @@ C_SRCS     = $(SRC_DIR)/kernel.c
 
 ASM_OBJS   = $(ASM_SRCS:$(SRC_DIR)/%.asm=$(BUILD_DIR)/%.o)
 C_OBJS     = $(C_SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
-OBJS       = $(ASM_OBJS) 
-# OBJS       = $(ASM_OBJS) $(C_OBJS)
+# OBJS       = $(ASM_OBJS) 
+OBJS       = $(ASM_OBJS) $(C_OBJS)
 
 KERNEL     = $(BOOT_DIR)/kernel.elf
 IMAGE	   = disk.img
 
-all: $(KERNEL)
+all: image
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
