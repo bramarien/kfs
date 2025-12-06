@@ -10,7 +10,7 @@
 - Write an ASM boot code that handles multiboot header, 
         and use GRUB to init and call main function of the kernel itself
 
-- Wite basic kernel code of the choosen language ( in our case C )
+- Write basic kernel code of the choosen language ( in our case C )
 
 - Compile it with correct flags and link it to make it bootable
 
