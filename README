@@ -38,8 +38,18 @@ OSDEV
 ### How to create a basic disk image with grub
 Create an empty file with dd : `dd if=/dev/zero of=./kfs.img bs=1M count=10`
 Mount this image using loop device.
-Use fdisk on this loop device. ( dont forget to flag the partition as bootable )
-Partition the image as ext2 fs ( carefull to not partition the entire image but only the /dev/_p1 )
+Use sfdisk on this loop device.
+Partition the image as ext2 ( carefull to not partition the entire image but only the /dev/_p1 )
 Then mount the image on a host folder and create /boot entry.
 Using grub from the host install it on the mounted image.
 `grub-install --target=i386-pc /dev/loop0`
+
+
+
+
+### Random notes
+...
+
+## Requirements :
+
+ld grub nasm gcc partx qemu

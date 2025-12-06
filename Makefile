@@ -1,11 +1,57 @@
-ASM=nasm
+NASM    = nasm
+CC      = gcc
+LD      = ld
+QEMU    = qemu-system-i386
 
-SRC_DIR=src
-BUILD_DIR=build
+NASMFLAGS  = -f elf32
+CFLAGS     = -m32 -ffreestanding -fno-pic -fno-stack-protector -nostdlib -Wall -Wextra
+LDFLAGS    = -m elf_i386 --nmagic -T linker.ld
 
-$(BUILD_DIR)/main.img: $(BUILD_DIR)/main.bin
-	cp $(BUILD_DIR)/main.bin $(BUILD_DIR)/main_truncated.img
-	truncate -s 1440k $(BUILD_DIR)/main_truncated.img
+SRC_DIR    = src
+BUILD_DIR  = build
+BOOT_DIR   = boot
 
-$(BUILD_DIR)/main.bin: $(SRC_DIR)/init.asm
-	$(ASM) $(SRC_DIR)/init.asm -f bin -o $(BUILD_DIR)/main.bin
+ASM_SRCS   = $(SRC_DIR)/multiboot_header.asm \
+             $(SRC_DIR)/boot.asm
+
+C_SRCS     = $(SRC_DIR)/kernel.c
+
+ASM_OBJS   = $(ASM_SRCS:$(SRC_DIR)/%.asm=$(BUILD_DIR)/%.o)
+C_OBJS     = $(C_SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+OBJS       = $(ASM_OBJS) 
+# OBJS       = $(ASM_OBJS) $(C_OBJS)
+
+KERNEL     = $(BOOT_DIR)/kernel.elf
+IMAGE	   = disk.img
+
+all: $(KERNEL)
+
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.asm | $(BUILD_DIR)
+	$(NASM) $(NASMFLAGS) $< -o $@
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(KERNEL): $(OBJS)
+	$(LD) $(LDFLAGS) -o $@ $(OBJS)
+
+image: $(KERNEL)
+	sudo sh ./disk-builder.sh
+
+run:
+	$(QEMU) -drive file=$(IMAGE),format=raw,
+
+clean:
+	rm -rf $(BUILD_DIR)
+	rm -rf $(MNT_POINT)
+	rm -f $(KERNEL)
+
+fclean: clean
+	rm -f $(IMAGE)
+
+re: fclean all
+
+.PHONY: all clean fclean re run
