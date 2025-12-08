@@ -21,7 +21,7 @@ mkdir -p "$MNT_POINT/boot"
 grub-install \
   --target=i386-pc \
   --boot-directory="$MNT_POINT/boot" \
-  --install-modules="normal multiboot2 biosdisk part_msdos ext2" \
+  --install-modules="normal multiboot biosdisk part_msdos ext2" \
   --themes= \
   --fonts= \
   "$LOOPDEV"

@@ -4,15 +4,14 @@ LD      = ld
 QEMU    = qemu-system-i386
 
 NASMFLAGS  = -f elf32
-CFLAGS     = -m32 -ffreestanding -fno-pic -fno-stack-protector -nostdlib -Wall -Wextra
+CFLAGS     = -m32 -O2 -ffreestanding -Wall -Wextra -fno-builtin -fno-exception -fno-stack-protector -fno-rtti -nostdlib -nodefaultlibs
 LDFLAGS    = -m elf_i386 --nmagic -T linker.ld
 
 SRC_DIR    = src
 BUILD_DIR  = build
 BOOT_DIR   = boot
 
-ASM_SRCS   = $(SRC_DIR)/multiboot_header.asm \
-             $(SRC_DIR)/boot.asm
+ASM_SRCS   = $(SRC_DIR)/boot.asm
 
 C_SRCS     = $(SRC_DIR)/kernel.c
 
