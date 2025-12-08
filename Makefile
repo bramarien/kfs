@@ -4,7 +4,7 @@ LD      = ld
 QEMU    = qemu-system-i386
 
 NASMFLAGS  = -f elf32
-CFLAGS     = -m32 -O2 -ffreestanding -Wall -Wextra -fno-builtin -fno-exception -fno-stack-protector -fno-rtti -nostdlib -nodefaultlibs
+CFLAGS     = -m32 -O2 -ffreestanding -Wall -Wextra -fno-builtin -fno-exceptions -fno-stack-protector -fno-rtti -nostdlib -nodefaultlibs
 LDFLAGS    = -m elf_i386 --nmagic -T linker.ld
 
 SRC_DIR    = src
