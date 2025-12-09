@@ -27,7 +27,6 @@ SRCS =	ft_isalnum.c \
 		ft_strchr.c \
 		ft_strnchr.c \
 		ft_strncmp.c \
-		ft_strndup.c \
 		ft_strcmp.c \
 		ft_strrchr.c \
 		ft_tolower.c \
@@ -35,32 +34,10 @@ SRCS =	ft_isalnum.c \
 		ft_strlcpy.c \
 		ft_strnstr.c \
 		ft_strlcat.c \
-		ft_atoi.c \
-		ft_substr.c \
-		ft_strjoin.c \
-		ft_strtrim.c \
-		ft_split.c \
 		ft_itoa.c \
 		ft_uitoa.c \
-		ft_strmapi.c \
-		ft_putchar_fd.c \
-		ft_putstr_fd.c \
-		ft_putendl_fd.c \
-		ft_putnbr_fd.c \
-		ft_calloc.c \
-		ft_strdup.c \
-		get_next_line.c \
-		ft_printf/ft_printf.c \
-		ft_printf/ft_uitox.c \
-		ft_printf/ft_params.c \
-		ft_printf/ft_params_di.c \
-		ft_printf/ft_params_uxx.c \
-		ft_printf/ft_params_p.c \
-		ft_printf/ft_params_s.c \
-		ft_printf/ft_parsing.c \
-		ft_printf/ft_parsing_plus.c\
-		ft_printf/ft_useful.c
-FLAGS = -Wall -Wextra -Werror
+		ft_atoi.c
+FLAGS = -Wall -Wextra -Werror -m32 -O2 -ffreestanding -fno-builtin -fno-exceptions -fno-stack-protector -nostdlib -nodefaultlibs
 HEADER = libft.h
 OBJS = ${SRCS:.c=.o}
 

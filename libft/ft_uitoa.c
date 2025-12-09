@@ -27,15 +27,11 @@ static int	get_size(unsigned int n)
 	return (size);
 }
 
-char	*ft_uitoa(unsigned int n)
+void	ft_uitoa(unsigned int n, char *str)
 {
 	int			size;
-	char		*str;
 
 	size = get_size(n);
-	str = (char *)malloc((size + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
 	if (n == 0)
 		str[0] = '0';
 	str[size--] = '\0';
@@ -44,5 +40,4 @@ char	*ft_uitoa(unsigned int n)
 		str[size--] = n % 10 + '0';
 		n /= 10;
 	}
-	return (str);
 }

@@ -34,19 +34,15 @@ static int	get_size(int n)
 	return (size);
 }
 
-char	*ft_itoa(int n)
+void	ft_itoa(int n, char *str)
 {
 	int			size;
-	char		*str;
 	int			i;
 	long int	fat_n;
 
 	fat_n = (long int)n;
 	i = 0;
 	size = get_size(fat_n);
-	str = (char *)malloc((size + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
 	if (n == 0)
 		str[0] = '0';
 	if (n < 0)
@@ -60,5 +56,4 @@ char	*ft_itoa(int n)
 		str[size--] = fat_n % 10 + '0';
 		fat_n /= 10;
 	}
-	return (str);
 }
