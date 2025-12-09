@@ -8,9 +8,12 @@ CFLAGS     = -m32 -O2 -ffreestanding -Wall -Wextra -fno-builtin -fno-exceptions 
 LDFLAGS    = -m elf_i386 --nmagic -T linker.ld
 
 SRC_DIR    = src
+HDR_DIR    = inc
 BUILD_DIR  = build
 BOOT_DIR   = boot
 LIBFT_DIR  = libft
+
+HDRS       = $(HDR_DIR)/libft.h
 
 ASM_SRCS   = $(SRC_DIR)/boot.asm
 
@@ -33,8 +36,8 @@ $(BUILD_DIR):
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.asm | $(BUILD_DIR)
 	$(NASM) $(NASMFLAGS) $< -o $@
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(HDRS) | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -I$(HDR_DIR) -c $< -o $@
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
