@@ -15,7 +15,8 @@ LIBFT_DIR  = libft
 
 HDRS       = $(HDR_DIR)/libft.h
 
-ASM_SRCS   = $(SRC_DIR)/boot.asm
+ASM_SRCS   =	$(SRC_DIR)/boot.asm \
+				$(SRC_DIR)/keyboard.asm
 
 C_SRCS     = $(SRC_DIR)/kernel.c
 

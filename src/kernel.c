@@ -1,4 +1,4 @@
-#define VGA_ADDR 0xB8000
+#include "kfs.h"
 
 void kernel_main(void) {
 	char* vidmem = (char*) VGA_ADDR;
@@ -7,5 +7,6 @@ void kernel_main(void) {
 	for (int i = 0; msg[i] != '\0'; ++i) {
 		vidmem[i * 2] = msg[i];
 	}
-	while (1) { }
+	get_key();
+	// while (1) { }
 }
