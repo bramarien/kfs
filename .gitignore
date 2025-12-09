@@ -2,3 +2,5 @@
 build
 boot/kernel.elf
 disk.img
+**/*.o
+**/*.a
