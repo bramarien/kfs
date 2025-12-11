@@ -1,0 +1,13 @@
+-m32
+-O2
+-ffreestanding
+-Wall
+-Wextra
+-Werror
+-fno-builtin
+-fno-exceptions
+-fno-stack-protector
+-nostdlib
+-nodefaultlibs
+-I
+inc
