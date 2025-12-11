@@ -13,12 +13,15 @@ BUILD_DIR  = build
 BOOT_DIR   = boot
 LIBFT_DIR  = libft
 
-HDRS       = $(HDR_DIR)/libft.h
+HDRS       = $(HDR_DIR)/libft.h \
+			 $(HDR_DIR)/keyboard.h \
+			 $(HDR_DIR)/kfs.h
 
-ASM_SRCS   =	$(SRC_DIR)/boot.asm \
-				$(SRC_DIR)/keyboard.asm
+ASM_SRCS   = $(SRC_DIR)/boot.asm \
+			 $(SRC_DIR)/keyboard_polling.asm
 
-C_SRCS     = $(SRC_DIR)/kernel.c
+C_SRCS     = $(SRC_DIR)/kernel.c \
+			 $(SRC_DIR)/keyboard.c
 
 ASM_OBJS   = $(ASM_SRCS:$(SRC_DIR)/%.asm=$(BUILD_DIR)/%.o)
 C_OBJS     = $(C_SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)

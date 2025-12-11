@@ -1,12 +1,18 @@
 #include "kfs.h"
+#include "keyboard.h"
 
 void kernel_main(void) {
 	char* vidmem = (char*) VGA_ADDR;
 	const char* msg = "Hello World in C";
+	int	i;
 
-	for (int i = 0; msg[i] != '\0'; ++i) {
+	i = 0;
+	while (msg[i] != '\0') {
 		vidmem[i * 2] = msg[i];
+		i++;
 	}
-	get_key();
-	// while (1) { }
+	while (1) {
+		vidmem[i * 2] = get_keystroke();
+		i++;
+	}
 }
