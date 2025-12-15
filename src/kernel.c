@@ -4,6 +4,7 @@
 void kernel_main(void) {
 	char* vidmem = (char*) VGA_ADDR;
 	const char* msg = "Hello World in C";
+	char	keypress;
 	int	i;
 
 	i = 0;
@@ -12,7 +13,8 @@ void kernel_main(void) {
 		i++;
 	}
 	while (1) {
-		vidmem[i * 2] = get_keystroke();
+		keypress = get_keypress();
+		vidmem[i * 2] = keypress;
 		i++;
 	}
 }
