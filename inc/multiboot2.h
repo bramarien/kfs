@@ -1,4 +1,3 @@
-#include "kfs.h"
 #include "stdint.h"
 /*   multiboot2.h - Multiboot 2 header file. */
 /*   Copyright (C) 1999,2003,2007,2008,2009,2010  Free Software Foundation, Inc.
@@ -24,6 +23,7 @@
 #ifndef MULTIBOOT_HEADER
 #define MULTIBOOT_HEADER 1
 
+struct kfs; // forward declaration
 
 int multiboot2_info_parser(struct kfs *kfs, unsigned long magic, uint32_t multiboot_info_addr);
 
