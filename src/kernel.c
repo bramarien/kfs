@@ -37,7 +37,6 @@ void fb_write_char(struct kfs *kfs, struct font *f, char c)
     fb_write(kfs, f, s);
 }
 
-
 static int main_font_init(struct kfs *kfs) 
 {
 	kfs->main_font->header = (PSF1_Header *)_binary_fonts_unifont_apl8x16_psf_start;
