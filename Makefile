@@ -4,7 +4,7 @@ LD      = ld
 QEMU    = qemu-system-i386
 
 NASMFLAGS  = -f elf32
-CFLAGS     = -m32 -O2 -ffreestanding -Wall -Wextra -Werror -fno-builtin -fno-exceptions -fno-stack-protector -nostdlib -nodefaultlibs
+CFLAGS     = -m32 -O2 -ffreestanding -Wall -Wextra -fno-builtin -fno-exceptions -fno-stack-protector -nostdlib -nodefaultlibs -g
 LDFLAGS    = -m elf_i386 --nmagic -T linker.ld
 
 SRC_DIR    = src
@@ -15,13 +15,16 @@ LIBFT_DIR  = libft
 
 HDRS       = $(HDR_DIR)/libft.h \
 			 $(HDR_DIR)/keyboard.h \
+	     		 $(HDR_DIR)/multiboot2.h \
 			 $(HDR_DIR)/kfs.h
 
 ASM_SRCS   = $(SRC_DIR)/boot.asm \
 			 $(SRC_DIR)/keyboard_polling.asm
 
 C_SRCS     = $(SRC_DIR)/kernel.c \
-			 $(SRC_DIR)/keyboard.c
+			 $(SRC_DIR)/keyboard.c \
+			 $(SRC_DIR)/multiboot2.c
+			 
 
 ASM_OBJS   = $(ASM_SRCS:$(SRC_DIR)/%.asm=$(BUILD_DIR)/%.o)
 C_OBJS     = $(C_SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
@@ -53,7 +56,10 @@ image: $(KERNEL)
 	sudo sh ./disk-builder.sh
 
 run:
-	$(QEMU) -drive file=$(IMAGE),format=raw,
+	$(QEMU) -drive file=$(IMAGE),format=raw -vga std
+
+debug:
+	$(QEMU) -drive file=$(IMAGE),format=raw, -S -s -vga std
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
