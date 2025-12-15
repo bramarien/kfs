@@ -1,4 +1,3 @@
-#include "multiboot2.h"
 #include "kfs.h"
 
 static int tag_parser(struct kfs *kfs, struct multiboot_tag *tag)
@@ -13,7 +12,6 @@ static int tag_parser(struct kfs *kfs, struct multiboot_tag *tag)
 
 			default:
 				break;
-
         	}
 		tag = (struct multiboot_tag *) ((multiboot_uint8_t *) tag + ((tag->size + 7) & ~7));
 	}
