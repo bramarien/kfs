@@ -3,6 +3,7 @@
 #include "stdint.h"
 
 struct kfs;
+struct multiboot_tag_framebuffer;
 
 typedef struct {
 	uint16_t magic; // Magic bytes for identification.
@@ -16,4 +17,5 @@ struct font {
 	char *glyphs;
 };
 
-void fb_putchar(struct kfs *kfs, struct font *f, uint32_t x, uint32_t y, char c, uint32_t color);
+void putpixel(struct multiboot_tag_framebuffer *fb, uint32_t x, uint32_t y, uint32_t color);
+void fb_putchar(struct multiboot_tag_framebuffer *fb, struct font *f, uint32_t x, uint32_t y, uint32_t color, char c);
