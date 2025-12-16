@@ -18,6 +18,7 @@ HDRS       = $(HDR_DIR)/libft.h \
 			 $(HDR_DIR)/keyboard.h \
 	     		 $(HDR_DIR)/multiboot2.h \
 	     		 $(HDR_DIR)/gfx.h \
+	     		 $(HDR_DIR)/console.h \
 			 $(HDR_DIR)/kfs.h
 
 ASM_SRCS   = $(SRC_DIR)/boot.asm \
@@ -26,6 +27,7 @@ ASM_SRCS   = $(SRC_DIR)/boot.asm \
 C_SRCS     = $(SRC_DIR)/kernel.c \
 			 $(SRC_DIR)/keyboard.c \
 			 $(SRC_DIR)/gfx.c \
+			 $(SRC_DIR)/console.c \
 			 $(SRC_DIR)/multiboot2.c
 			 
 FONT_SRCS  = $(FONT_DIR)/unifont_apl8x16.psf

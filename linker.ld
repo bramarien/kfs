@@ -3,6 +3,10 @@ ENTRY(_start)
 SECTIONS {
 	. = 2M;
 
+	.gdt 0x00000800 : ALIGN(8) {
+        	*(.gdt)
+    	}
+
 	.text BLOCK(4K) : ALIGN(4K)
 	{
 		*(.multiboot)

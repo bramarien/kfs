@@ -11,23 +11,23 @@ MB2_ARCH_I386        equ 0
 MB2_HEADER_LEN       equ header_end - header_start
 
 header_start:
-    dd MB2_MAGIC
-    dd MB2_ARCH_I386
-    dd MB2_HEADER_LEN
-    dd -(MB2_MAGIC + MB2_ARCH_I386 + MB2_HEADER_LEN)
+    	dd MB2_MAGIC
+	dd MB2_ARCH_I386
+	dd MB2_HEADER_LEN
+	dd -(MB2_MAGIC + MB2_ARCH_I386 + MB2_HEADER_LEN)
 
 align 8			  ; tag alignment
-    dw 5                  ; type = MULTIBOOT_HEADER_TAG_FRAMEBUFFER
-    dw 0                  ; flags
-    dd 20                 ; size (20 bytes total)
-    dd 800                ; width request
-    dd 600                ; height request
-    dd 32                 ; depth = 32 bpp
+	dw 5                  ; type = MULTIBOOT_HEADER_TAG_FRAMEBUFFER
+	dw 0                  ; flags
+	dd 20                 ; size (20 bytes total)
+	dd 800                ; width request
+	dd 600                ; height request
+	dd 32                 ; depth = 32 bpp
 
 align 8
-    dw 0                  ; type = END
-    dw 0
-    dd 8                  ; size = 8 bytes
+	dw 0                  ; type = END
+	dw 0
+	dd 8                  ; size = 8 bytes
 header_end:
 
 KERNEL_CS equ 0x08		; kernel code segment
@@ -48,19 +48,21 @@ GDT_GRAN_4K   equ 1 << 7
 GDT_32BIT     equ 1 << 6
 
 %macro GDT_ENTRY 4
-    ; %1 = base
-    ; %2 = limit
-    ; %3 = access
-    ; %4 = flags
+	; %1 = base
+	; %2 = limit
+	; %3 = access
+	; %4 = flags
 
-    dw %2 & 0xFFFF
-    dw %1 & 0xFFFF
-    db (%1 >> 16) & 0xFF
-    db %3
-    db ((%2 >> 16) & 0x0F) | (%4 & 0xF0)
-    db (%1 >> 24) & 0xFF
+	dw %2 & 0xFFFF
+	dw %1 & 0xFFFF
+	db (%1 >> 16) & 0xFF
+	db %3
+	db ((%2 >> 16) & 0x0F) | (%4 & 0xF0)
+	db (%1 >> 24) & 0xFF
 %endmacro
 
+section .gdt
+align 8
 gdt_start:
 	GDT_ENTRY 0, 0, 0, 0																						; null
 	GDT_ENTRY 0, 0xFFFFF, GDT_PRESENT | GDT_RING0 | GDT_CODEDATA | GDT_EXEC | GDT_RW, GDT_GRAN_4K | GDT_32BIT	; KERNEL CODE
@@ -70,8 +72,8 @@ gdt_start:
 gdt_end:
 
 gdtr:
-    dw gdt_end - gdt_start - 1   ; limit
-    dd gdt_start                 ; base
+	dw gdt_end - gdt_start - 1   ; limit
+	dd gdt_start                 ; base
 
 section .bss
 align 16
@@ -88,8 +90,8 @@ _start:
 	cli
 	lgdt [gdtr]
 	mov [saved_eax], eax
-    mov [saved_ebx], ebx
-	jmp reload_cs
+    	mov [saved_ebx], ebx
+	jmp KERNEL_CS:reload_cs
 
 reload_cs:
 	mov ax, KERNEL_DS
@@ -100,14 +102,14 @@ reload_cs:
 	mov ss, ax
 	mov esp, stack_top
 	
-    mov eax, [saved_eax]
-    mov ebx, [saved_ebx]
+	mov eax, [saved_eax]
+	mov ebx, [saved_ebx]
 	push ebx
-    push eax
-    call kernel_main
+	push eax
+	call kernel_main
 
 
 .hang:
-    cli
-    hlt
-    jmp .hang
+	cli
+	hlt
+	jmp .hang
